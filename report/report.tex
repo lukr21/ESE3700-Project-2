@@ -48,7 +48,7 @@ the project figure of merit
 \]
 using the worst-case access delay and the average power during the specified
 all-zeros/all-ones write workload. The resulting FOM is
-$\mathbf{8.46\times10^{6}~\mu\text{m}\cdot\mu\text{W}\cdot\text{ps}^{2}}$
+$\mathbf{8.54\times10^{6}~\mu\text{m}\cdot\mu\text{W}\cdot\text{ps}^{2}}$
 at a 320\,ps measurement period (3.125\,GHz), well above the 500\,MHz
 requirement.
 
@@ -584,10 +584,15 @@ Adding margin on the write side would close this gap further.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\linewidth]{power_320ps.png}
-  \caption{Average supply current at $T=320$\,ps during the FOM workload
-    -- four repetitions of (write all-0s, write all-1s). Averaging over
-    cycles 16--95 excludes initial transient and gives $P=54.18\uW$.}
+  \includegraphics[width=0.95\linewidth]{../figures/power_320ps.png}
+  \caption{Instantaneous and time-averaged supply power at $T=320$\,ps
+    during the FOM workload. The full simulation spans 128 clock cycles
+    ($16\ \text{addresses}\times 2\ \text{patterns}\times 4\ \text{repeats}
+    = 128\ \text{cycles}\times 320\,\text{ps}\approx 41\,$ns),
+    consisting of four back-to-back repetitions of (write all-0s to every
+    address, write all-1s to every address). The red dashed line is the
+    arithmetic mean over the entire run including the initial transient:
+    $P=54.74\uW$.}
   \label{fig:power}
 \end{figure}
 
@@ -595,10 +600,14 @@ Per the project specification, average power is measured while repeatedly
 writing all-0s and then all-1s to the entire array, with the clock set to
 a period just above $T_{\min}$. We use $T=320$\,ps (3.125\,GHz), which
 provides $\sim7\%$ margin over $T_{\min}$ and aligns with a clean point on
-the period sweep grid. Averaging the supply current over cycles 16--95
-(excluding the initial settling transient) gives
+the period sweep grid. The workload is constructed exactly as the handout
+specifies -- four repetitions of (write all-0s, write all-1s) -- and
+requires one cycle per address per pattern, for a total of
+$16\times 2\times 4 = 128$ cycles ($\approx 41\,$ns). The average is taken
+over the entire run (including the initial settling transient so that no
+data is discarded), giving
 \[
-  P = 54.18\uW.
+  P = 54.74\uW.
 \]
 
 % ------------------------------------------------------------
@@ -609,16 +618,16 @@ the period sweep grid. Averaging the supply current over cycles 16--95
 With the measured inputs
 \[
   \mathrm{BitcellArea} = 0.308\um,\qquad
-  P = 54.18\uW,\qquad
+  P = 54.74\uW,\qquad
   D = 91.9\,\text{ps},
 \]
 the FOM evaluates to
 \begin{align*}
   \mathrm{FOM}
-  &= 60 \cdot 0.308\um \cdot 54.18\uW \cdot (91.9\,\text{ps})^2 \\
-  &= 60 \cdot 0.308 \cdot 54.18 \cdot 8445.61
+  &= 60 \cdot 0.308\um \cdot 54.74\uW \cdot (91.9\,\text{ps})^2 \\
+  &= 60 \cdot 0.308 \cdot 54.74 \cdot 8445.61
      \;\mu\text{m}\cdot\mu\text{W}\cdot\text{ps}^{2} \\
-  &\approx \mathbf{8.46\times10^{6}\ \mu\text{m}\cdot\mu\text{W}\cdot\text{ps}^{2}}.
+  &\approx \mathbf{8.54\times10^{6}\ \mu\text{m}\cdot\mu\text{W}\cdot\text{ps}^{2}}.
 \end{align*}
 
 % ------------------------------------------------------------
@@ -644,8 +653,8 @@ the FOM evaluates to
     Worst-case read access time       & 91.9\,ps \\
     Worst-case write access time      & 90.5\,ps \\
     Reported delay $D$                & 91.9\,ps \\
-    Average power $P$                 & $54.18\uW$ \\
-    \textbf{FOM}                      & $\mathbf{8.46\times10^{6}\ \mu\text{m}\cdot\mu\text{W}\cdot\text{ps}^{2}}$ \\
+    Average power $P$                 & $54.74\uW$ \\
+    \textbf{FOM}                      & $\mathbf{8.54\times10^{6}\ \mu\text{m}\cdot\mu\text{W}\cdot\text{ps}^{2}}$ \\
     \bottomrule
   \end{tabular}
 \end{table}

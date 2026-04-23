@@ -136,6 +136,4 @@
 +dmcg    = 0               dmci    = 0               dmdg    = 0               dmcgt   = 0             
 +dwj     = 0               xgw     = 0               xgl     = 0             
 
-+rshg    = 0.4             gbmin   = 1e-010          rbpb    = 5               rbpd    = 15            
-+rbps    = 15              rbdb    = 15              rbsb    = 15              ngcon   = 1             
-
++rshg    = 0.4             gbmin   = 1e-010          rbpb    = 5       
