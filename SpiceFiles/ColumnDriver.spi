@@ -1,0 +1,38 @@
+*** SPICE deck for cell ColumnDriver{sch} from library ESE3700_Project2
+*** Created on Sun Apr 12, 2026 00:48:05
+*** Last revised on Wed Apr 22, 2026 02:03:48
+*** Written on Wed Apr 22, 2026 02:03:58 by Electric VLSI Design System, version 9.08
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.1FF
+* Model cards described in this file:
+.include C:\Users\lkkri\ESE3700-Lucas-Krippendorff\22nm_HP.pm
+
+*** SUBCIRCUIT ESE3700_Project2__INV_min FROM CELL INV_min{sch}
+.SUBCKT ESE3700_Project2__INV_min A Y
+** GLOBAL gnd
+** GLOBAL vdd
+Mnmos@1 Y A gnd gnd N L=0.022U W=0.022U
+Mpmos@0 vdd A Y vdd P L=0.022U W=0.022U
+.ENDS ESE3700_Project2__INV_min
+
+*** SUBCIRCUIT ESE3700_Project2__TristateBuf FROM CELL TristateBuf{sch}
+.SUBCKT ESE3700_Project2__TristateBuf En In Out
+** GLOBAL gnd
+** GLOBAL vdd
+Mnmos@0 Out net@1 net@9 gnd N L=0.022U W=0.088U
+Mnmos@1 net@9 En gnd gnd N L=0.022U W=0.088U
+Mpmos@0 vdd net@6 net@8 vdd P L=0.022U W=0.088U
+Mpmos@1 net@8 net@1 Out vdd P L=0.022U W=0.088U
+XINV_min@0 In net@1 ESE3700_Project2__INV_min
+XINV_min@1 En net@6 ESE3700_Project2__INV_min
+.ENDS ESE3700_Project2__TristateBuf
+
+.global gnd vdd
+
+*** TOP LEVEL CELL: ColumnDriver{sch}
+Mpmos@0 vdd PCHb BLb vdd P L=0.022U W=0.044U
+Mpmos@1 BL PCHb vdd vdd P L=0.022U W=0.044U
+XINV_min@0 D net@4 ESE3700_Project2__INV_min
+XTriState@0 Wr D BL ESE3700_Project2__TristateBuf
+XTriState@1 Wr net@4 BLb ESE3700_Project2__TristateBuf
+.END

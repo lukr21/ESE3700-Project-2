@@ -1,0 +1,59 @@
+# ============================================================
+# ESE3700 Project 2 — .gitignore
+# Keep: .jelib, .spi, .pm, .py, .tex, .md, .png, .pdf, curated tables
+# Drop: sim output dumps, build artifacts, tool binaries, OS junk
+# ============================================================
+
+# --- ngspice binary distribution (not our work, ~47 MB) -----
+ngspice-45.2_64/
+
+# --- Python cache ------------------------------------------
+__pycache__/
+*.pyc
+*.pyo
+
+# --- Editor / local state ----------------------------------
+.claude/
+.vscode/
+.idea/
+
+# --- Simulation output: raw transient dumps ----------------
+# Regenerable from the .spi files; blanket-ignore CSVs but keep
+# small curated tables that live next to figures/reports.
+*.csv
+!**/breakdown_table.csv
+
+# --- ngspice .meas / results / raw dumps -------------------
+*_results.txt
+*.meas
+*.raw
+*.npz
+*.npy
+*.pkl
+
+# --- ngspice run logs (e.g. out.log, probed_*.log) ---------
+SpiceFiles/**/*.log
+
+# --- LaTeX build artifacts (report/) -----------------------
+# Scoped to report/ so SpiceFiles/**/*.log handling above
+# doesn't conflict with other .log uses.
+report/*.aux
+report/*.log
+report/*.out
+report/*.toc
+report/*.lof
+report/*.lot
+report/*.bbl
+report/*.blg
+report/*.fls
+report/*.fdb_latexmk
+report/*.synctex.gz
+report/*.synctex(busy)
+report/*.nav
+report/*.snm
+report/*.vrb
+
+# --- OS / misc ---------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini

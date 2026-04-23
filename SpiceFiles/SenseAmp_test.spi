@@ -1,0 +1,63 @@
+*** Testbench for SenseAmp (isolated latch SA) - Lucas Krippendorff
+*** Two back-to-back read cycles with a small bitline differential,
+*** simulating what a 6T SRAM cell would deliver onto loaded bitlines.
+
+.include C:\Users\lkkri\ESE3700-Lucas-Krippendorff\22nm_HP.pm
+
+.global gnd vdd
+
+* ===== Power supply (22nm HP nominal) =====
+VDD vdd gnd DC 0.8
+
+* ===== Sense Amplifier (transistors copied verbatim from SenseAmp.spi) =====
+Mnmos@0 net@35 Q net@15 gnd N L=0.022U W=0.088U
+Mnmos@1 Q net@35 net@15 gnd N L=0.022U W=0.088U
+Mnmos@2 net@15 SAE gnd gnd N L=0.022U W=0.176U
+Mpmos@0 vdd Q net@35 vdd P L=0.022U W=0.176U
+Mpmos@1 vdd net@35 Q vdd P L=0.022U W=0.176U
+Mpmos@2 BL SAE Q vdd P L=0.022U W=0.022U
+Mpmos@3 BLb SAE net@35 vdd P L=0.022U W=0.022U
+
+* ===== Bitline loading =====
+* Stand-in for column capacitance from a 6T array. ~1 fF/cell is typical;
+* 50 fF here corresponds to a column of ~50 cells. Bump up for taller arrays.
+CBL  BL  gnd 50f
+CBLb BLb gnd 50f
+
+* ===== Stimulus =====
+* Cycle 1 (0 - 15 ns) : READ "1"  -> BL stays at VDD,   BLb droops 80 mV
+* Cycle 2 (15- 30 ns) : READ "0"  -> BL droops 80 mV,   BLb stays at VDD
+*
+* In each cycle:
+*   - Both bitlines start precharged to VDD (0.8 V)
+*   - At t = 3 ns (or 18 ns) the "cell" begins pulling one bitline down
+*   - At t = 8 ns (or 23 ns) SAE rises -> isolation pass gates close,
+*     footer turns on, latch fires and resolves
+*   - SAE goes back low to set up for the next cycle
+*
+* Expected outcome:
+*   Cycle 1 ->  Q resolves to VDD,   net@35 resolves to GND
+*   Cycle 2 ->  Q resolves to GND,   net@35 resolves to VDD
+
+VBL  BL  gnd PWL(0 0.8   3n 0.8    6n 0.8    14n 0.8    15n 0.8   18n 0.8    21n 0.72  30n 0.72)
+VBLb BLb gnd PWL(0 0.8   3n 0.8    6n 0.72   14n 0.72   15n 0.8   18n 0.8    21n 0.8   30n 0.8)
+VSAE SAE gnd PWL(0 0     8n 0      8.1n 0.8  14n 0.8    14.1n 0   23n 0      23.1n 0.8 30n 0.8)
+
+* ===== Initial conditions (helps the solver start cleanly) =====
+.ic V(Q)=0.8 V(net@35)=0.8 V(net@15)=0
+
+* ===== Analysis =====
+.tran 10p 30n UIC
+
+* Comma-separated waveforms for batch / log inspection
+.print tran V(BL) V(BLb) V(SAE) V(Q) V(net@35) V(net@15)
+
+* Interactive plotting (ngspice). Comment out if running in batch.
+.control
+run
+plot V(BL) V(BLb) V(SAE)
+plot V(Q) V(net@35) V(SAE)
+plot V(BL) V(BLb) V(Q) V(net@35) V(SAE)
+.endc
+
+.end

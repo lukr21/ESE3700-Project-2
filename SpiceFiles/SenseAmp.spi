@@ -1,0 +1,20 @@
+*** SPICE deck for cell SenseAmp{sch} from library ESE3700_Project2
+*** Created on Sun Apr 12, 2026 19:02:21
+*** Last revised on Wed Apr 22, 2026 00:59:24
+*** Written on Wed Apr 22, 2026 03:43:44 by Electric VLSI Design System, version 9.08
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.1FF
+* Model cards described in this file:
+.include C:\Users\lkkri\ESE3700-Lucas-Krippendorff\22nm_HP.pm
+
+.global gnd vdd
+
+*** TOP LEVEL CELL: SenseAmp{sch}
+Mnmos@0 net@35 Q net@15 gnd N L=0.022U W=0.088U
+Mnmos@1 Q net@35 net@15 gnd N L=0.022U W=0.088U
+Mnmos@2 net@15 SAE gnd gnd N L=0.022U W=0.176U
+Mpmos@0 vdd Q net@35 vdd P L=0.022U W=0.176U
+Mpmos@1 vdd net@35 Q vdd P L=0.022U W=0.176U
+Mpmos@2 BL SAE Q vdd P L=0.022U W=0.022U
+Mpmos@3 BLb SAE net@35 vdd P L=0.022U W=0.022U
+.END

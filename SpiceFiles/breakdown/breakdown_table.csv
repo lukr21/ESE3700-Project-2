@@ -1,0 +1,19 @@
+Stage,Signal transition,2000 ps,320 ps,298 ps
+Clock buffer (final stage),net@30 fall → Phi2 rise,8.07,8.07,8.07
+Clock buffer (total),Clk fall → Phi2 rise,42.41,40.43,40.05
+Decoder NAND,Phi2 rise → net@314 fall,14.28,14.17,14.17
+WL buffer (INV_sized),net@314 fall → WL1 rise,6.77,6.78,6.78
+Decoder total,Phi2 rise → WL1 rise,21.06,20.95,20.94
+BL development,WL1 rise → |BL−BLb|=50 mV,2.84,2.47,2.25
+SAE AND gate,Phi2 rise → net@87 rise,12.47,12.31,12.30
+SAE buffer tap 1,net@87 → buf.net@0 fall,2.87,2.87,2.87
+SAE buffer tap 2,buf.net@0 → buf.net@1 rise,3.20,3.16,3.16
+SAE buffer tap 3,buf.net@1 → buf.net@6 fall,2.68,2.68,2.68
+SAE buffer tap 4,buf.net@6 → buf.net@2 rise,3.14,3.11,3.11
+SAE buffer tap 5,buf.net@2 → buf.net@9 fall,5.35,5.36,5.36
+SAE sized INV,buf.net@9 → SAE rise,8.59,8.54,8.53
+SAE chain total,Phi2 rise → SAE rise,38.31,38.01,38.01
+SA differential develops,WL1 rise → |n3−n35|=50 mV,11.38,10.16,9.55
+SA resolve to V_DD/2,SAE rise → Q/D0 at V_DD/2,28.53,28.03,27.82
+Q/D bus → R latch,Q/D0 at V_DD/2 → R0 at V_DD/2,25.99,25.84,25.84
+Total read latency,Phi2 rise → R0 at V_DD/2,92.83,91.88,91.67
