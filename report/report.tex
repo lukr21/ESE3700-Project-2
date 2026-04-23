@@ -14,7 +14,7 @@
 \usepackage{xcolor}
 \usepackage[hidelinks]{hyperref}
 
-\graphicspath{{../figures/}{../figures/breakdown/}{../schematics/}}
+\graphicspath{{../figures/breakdown/}{../figures/}{../schematics/}}
 
 % Shorthand macros
 \newcommand{\nWr}{\ensuremath{\overline{\text{Wr}}}}
@@ -400,7 +400,7 @@ at the bitline would systematically under-report the true access time.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\linewidth]{worst_case_read_zoom.png}
+  \includegraphics[width=0.95\linewidth]{../figures/breakdown/worst_case_read_zoom.png}
   \caption{Worst-case read (cycle~4: read~0 after previously written~1).
     Markers $t_1\ldots t_6$ correspond to the stages in
     Table~\ref{tab:read-path}.}
@@ -435,7 +435,7 @@ Total worst-case read delay: $\mathbf{D_{\text{read}} = 91.9\,\text{ps}}$.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\linewidth]{worst_case_write_zoom.png}
+  \includegraphics[width=0.95\linewidth]{../figures/breakdown/worst_case_write_zoom.png}
   \caption{Worst-case write (cycle~3: write~0 over a previously stored~1).
     Markers $t_1\ldots t_5$ correspond to the stages in
     Table~\ref{tab:write-path}.}
@@ -503,14 +503,6 @@ $4:2:1$ sizing.
     read~1, write~0, read~0 at a single address across four cycles. All
     four read outputs match the previously written values.}
   \label{fig:main1}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.98\linewidth]{mainTest1_per_cycle_zoom.png}
-  \caption{Per-cycle zoom of \texttt{mainTest1}. Each cycle shows clean
-    precharge, WL pulse, BL transition, SAE firing, and output resolution.}
-  \label{fig:main1zoom}
 \end{figure}
 
 % ------------------------------------------------------------
@@ -672,12 +664,12 @@ margin at $T_{\min}$ is spent on the write path, which is the most
 promising target for further optimization.
 
 % ============================================================
-\section*{References}
+% References (thebibliography emits its own heading)
 % ============================================================
 
 \begin{thebibliography}{9}
   \bibitem{ra-sa}
-  \emph{Latch-type sense amplifier,} ResearchGate, figure 4.
+  \emph{Latch-type sense amplifier,} ResearchGate, figure 4.\\
   \url{https://www.researchgate.net/figure/Latch-type-sense-amplifier_fig4_2977800}
 \end{thebibliography}
 
@@ -686,6 +678,7 @@ promising target for further optimization.
 % ============================================================
 
 \vspace{2em}
+
 \noindent
 \fbox{\parbox{0.95\linewidth}{%
   I, Lucas Krippendorff, certify that I have complied with the University
